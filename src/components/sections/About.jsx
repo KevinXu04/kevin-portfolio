@@ -75,9 +75,6 @@ export const About = () => {
                         <li>
                             <strong> MBO 4 Software Developer </strong> ROC Da Vinci College (2022 - <strong>Expected 2026</strong>)
                         </li>
-                        <li>
-                            Relevant Coursework: Web development, Data structures
-                        </li>
                     </ul>
                 </div>
                 <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all">
