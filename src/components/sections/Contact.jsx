@@ -2,11 +2,7 @@ import {
     Instagram,
     Linkedin,
     Mail,
-    MapPin,
     Phone,
-    Send,
-    Twitch,
-    Twitter,
   } from "lucide-react";
 import { useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
@@ -121,7 +117,7 @@ export const Contact = () => {
                                     name="name" 
                                     required 
                                     value={formData.name}
-                                    className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white transition focus:outline-none focus:border-blue-500 focus:bg-blue-500/5"
+                                    className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white hover:border-blue-500/30 transition focus:outline-none focus:border-blue-500 focus:bg-blue-500/5"
                                     placeholder="Name"
                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                                 />
@@ -133,7 +129,7 @@ export const Contact = () => {
                                     name="email" 
                                     required 
                                     value={formData.email}
-                                    className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white transition focus:outline-none focus:border-blue-500 focus:bg-blue-500/5"
+                                    className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white hover:border-blue-500/30 transition focus:outline-none focus:border-blue-500 focus:bg-blue-500/5"
                                     placeholder="example@gmail.com"
                                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                                 />
@@ -145,7 +141,7 @@ export const Contact = () => {
                                     required 
                                     value={formData.message}
                                     rows={5}
-                                    className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white transition focus:outline-none focus:border-blue-500 focus:bg-blue-500/5"
+                                    className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white hover:border-blue-500/30 transition focus:outline-none focus:border-blue-500 focus:bg-blue-500/5"
                                     placeholder="Your Message"
                                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                                 />
