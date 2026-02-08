@@ -1,189 +1,168 @@
 @import "tailwindcss";
 
-html, 
+html,
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Space-Grotesk", sans-serif;
-    background: #0a0a0a;
-    color: #f3f4f6;
+  margin: 0;
+  padding: 0;
+  font-family: "Space Grotesk", sans-serif;
+  background: #050510;
+  color: #f3f4f6;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050510;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #fff;
 }
 
 @layer utilities {
-    @keyframes blink {
-        0%, 
-        100% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0;
-        }
-    }
-
-    .animate-blink {
-        animation: blink .8s step-end infinite;
-    }
-
-    @keyframes loading {
-        0% {
-            transform: translateX(-100%);
-        }
-        100% {
-            transform: translateX(250%);
-        }
-    }
-
-    .animate-loading-bar {
-        animation: loading .8s ease infinite;
-    }
-}
-
-.reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity .7s ease, transform .7s ease;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  .animate-blink {
+    animation: blink 0.8s step-end infinite;
+  }
+  @keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+  .animate-loading-bar {
+    animation: loading 1.2s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); }
+    50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); }
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+  }
 }
 
 @theme {
-    --color-border: hsl(var(--border));
-    --color-background: hsl(var(--background));
-    --color-foreground: hsl(var(--foreground));
-  
-    --color-primary: hsl(var(--primary));
-    --color-primary-foreground: hsl(var(--primary-foreground));
-  
-    --color-card: hsl(var(--card));
-  
-    --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
+  --color-border: hsl(var(--border));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-card: hsl(var(--card));
+  --color-muted: hsl(var(--muted));
+  --color-accent: hsl(var(--accent));
+  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
+  --animate-meteor: meteor 5s linear infinite;
 
-    --animate-meteor: meteor 5s linear infinite;
-  
-
-    @keyframes pulse-subtle {
-      0%,
-      100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.8;
-      }
-    }
-
-    @keyframes meteor {
-      0% {
-        transform: rotate(215deg) translateX(0);
-        opacity: 1;
-      }
-      70% {
-        opacity: 1;
-      }
-      100% {
-        transform: rotate(215deg) translateX(-500px);
-        opacity: 0;
-      }
-    }
+  @keyframes pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
+  @keyframes meteor {
+    0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: rotate(215deg) translateX(-600px); opacity: 0; }
+  }
+}
 
 @layer base {
-    :root {
-        --background: 210 40% 98%;
-        --foreground: 222 47% 11%;
+  :root {
+    --background: 230 30% 3%;
+    --foreground: 213 31% 91%;
+    --card: 230 25% 7%;
+    --primary: 245 58% 62%;
+    --primary-foreground: 213 31% 95%;
+    --border: 230 20% 15%;
+    --muted: 230 15% 50%;
+    --accent: 200 80% 60%;
+  }
 
-        --card: 0 0% 100%;
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 
-        --primary: 250 47% 60%;
-        --primary-foreground: 210 40% 98%;
-
-        --border: 214 32% 91%;
+  /* Hide default cursor on desktop */
+  @media (hover: hover) {
+    *, *::before, *::after {
+      cursor: none !important;
     }
-
-    .dark {
-        --background: 222 47% 4%;
-        --foreground: 213 31% 91%;
-
-        --card: 222 47% 8%;
-
-        --primary: 250 65% 65%;
-        --primary-foreground: 213 31% 91%;
-
-        --border: 217 33% 20%;
-    }
-
-    * {
-        @apply border-border;
-    }
-
-    html {
-        @apply scroll-smooth;
-    }
-
-    body {
-        @apply bg-background text-foreground transition-colors duration-300;
-        font-feature-settings: "rlig" 1, "calt" 1;
-    }
+  }
 }
 
 @utility container {
-    margin-inline: auto;
-    padding-inline: 2rem;
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= 640px) { max-width: 640px; }
+  @media (width >= 768px) { max-width: 768px; }
+  @media (width >= 1024px) { max-width: 1024px; }
+  @media (width >= 1280px) { max-width: 1280px; }
+}
 
-    @media (width >= 640px) {
-        max-width: 640px;
-    }
-    @media (width >= 768px) {
-        max-width: 768px;
-    }
-    @media (width >= 1024px) {
-        max-width: 1024px;
-    }
-    @media (width >= 1280px) {
-        max-width: 1280px;
-    }
-    @media (width >= 1400px) {
-        max-width: 1400px;
-    }
+@utility glass-card {
+  @apply rounded-2xl border border-white/[0.08] backdrop-blur-xl;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 @utility text-glow {
-    @apply relative;
-    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 0 60px rgba(99, 102, 241, 0.15);
 }
 
-@utility card-hover {
-    @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
-}
-
-@utility gradient-border {
-    @apply relative rounded-md;
-    background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-    background-clip: padding-box;
-    border: 1px solid transparent;
+@utility gradient-text {
+  @apply bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent;
 }
 
 @utility cosmic-button {
-    @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-        transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-        hover:scale-105 active:scale-95;
+  @apply px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold
+    transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]
+    hover:scale-105 active:scale-95;
 }
 
 @utility star {
-    @apply absolute rounded-full bg-white;
-    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+  @apply absolute rounded-full bg-white;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.3);
 }
 
 @utility meteor {
-    @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+  @apply absolute bg-gradient-to-r from-white via-white/80 to-transparent rounded-full;
+  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.2);
 }
 
 #root {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    text-align: center;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
