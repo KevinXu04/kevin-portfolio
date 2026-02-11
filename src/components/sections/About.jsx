@@ -88,7 +88,7 @@ export const About = () => {
           <div className="glass-card p-8 md:p-10 mb-12 card-shine">
             <p className="text-white/60 text-lg leading-relaxed text-center max-w-3xl mx-auto">
               Hi, I&apos;m Kevin, a{" "}
-              <span className="text-white font-medium">20-year-old Software Developer</span>{" "}
+              <span className="text-white font-medium">21 year old Software Developer</span>{" "}
               from Dordrecht. I recently graduated from{" "}
               <span className="text-indigo-300">ROC Da Vinci College</span>{" "}
               and I&apos;m now pursuing{" "}
