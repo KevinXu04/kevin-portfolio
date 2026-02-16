@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import {
   FaLinkedin,
   FaInstagram,
+  FaGithub,
   FaEnvelope,
   FaPhone,
   FaPaperPlane,
@@ -69,6 +70,12 @@ export const Contact = () => {
       href: "https://www.linkedin.com/in/kevin-xiu-a43471249/",
       label: "LinkedIn",
       handle: "kevin-xiu",
+    },
+    {
+      icon: <FaGithub size={20} />,
+      href: "https://github.com/kevinxu04",
+      label: "GitHub",
+      handle: "kevinxu04",
     },
     {
       icon: <FaInstagram size={20} />,

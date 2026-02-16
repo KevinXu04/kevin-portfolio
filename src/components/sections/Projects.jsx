@@ -51,6 +51,7 @@ export const Projects = () => {
       gradient: "from-emerald-500/20 to-cyan-500/20",
       accentColor: "emerald",
       icon: "📱",
+      link: "https://tradein.xuprojects.dev",
       highlights: [
         "Automated device valuation engine",
         "End-to-end logistics tracking",
@@ -256,6 +257,23 @@ export const Projects = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Links */}
+                {selectedProject.link && (
+                  <div className="mb-8">
+                    <a
+                      href={selectedProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20
+                                 text-indigo-300 text-sm font-medium hover:bg-indigo-500/20 hover:border-indigo-500/30
+                                 transition-all duration-300"
+                    >
+                      <FaExternalLinkAlt size={12} />
+                      View Live Demo
+                    </a>
+                  </div>
+                )}
 
                 {/* Description */}
                 <div className="mb-8">

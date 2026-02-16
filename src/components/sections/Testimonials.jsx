@@ -13,6 +13,15 @@ export const Testimonials = () => {
       avatar: "J",
       accentColor: "from-indigo-500 to-purple-500",
     },
+    {
+      name: "Angelique Noordijk",
+      role: "Product Owner",
+      company: "Depot Software",
+      quote:
+        "Kevin played a key role in building our solar panel and home battery simulator. He was proactive, creative, and always came up with smart solutions to complex problems. His dashboards were intuitive and visually polished, and he consistently delivered on time during sprints. What impressed me most was his ability to translate technical requirements into a product that our clients could actually use and understand. A real asset to the team.",
+      avatar: "A",
+      accentColor: "from-cyan-500 to-indigo-500",
+    },
   ];
 
   return (
@@ -35,13 +44,13 @@ export const Testimonials = () => {
         </RevealOnScroll>
 
         {/* Testimonials */}
-        <div className="max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {testimonials.map((testimonial, i) => (
             <RevealOnScroll key={i} delay={i * 0.15}>
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="glass-card p-8 md:p-10 card-shine relative hover:z-10"
+                className="glass-card p-8 md:p-10 card-shine relative hover:z-10 h-full flex flex-col"
               >
                 {/* Quote icon */}
                 <div className="mb-6">
@@ -53,7 +62,7 @@ export const Testimonials = () => {
                 </div>
 
                 {/* Quote text */}
-                <blockquote className="text-white/60 text-lg leading-relaxed mb-8 italic">
+                <blockquote className="text-white/60 text-base leading-relaxed mb-8 italic flex-1">
                   &ldquo;{testimonial.quote}&rdquo;
                 </blockquote>
 

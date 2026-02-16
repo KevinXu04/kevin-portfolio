@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -42,11 +42,16 @@ export const Footer = () => {
                 href: "https://www.linkedin.com/in/kevin-xiu-a43471249/",
               },
               {
+                icon: <FaGithub size={18} />,
+                href: "https://github.com/kevinxu04",
+              },
+              {
                 icon: <FaInstagram size={18} />,
                 href: "https://www.instagram.com/realkevinxu/",
               },
               {
                 icon: <FaEnvelope size={18} />,
+
                 href: "mailto:x.kevinxiu@hotmail.com",
               },
             ].map((social, i) => (

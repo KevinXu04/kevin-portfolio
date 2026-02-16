@@ -17,6 +17,9 @@ import {
 } from "react-icons/si";
 
 export const About = () => {
+  const birthDate = new Date(2004, 5, 1); // June 1, 2004
+  const age = Math.floor((Date.now() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+
   const skills = [
     { name: "React", icon: <FaReact />, color: "#61DAFB" },
     { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
@@ -32,7 +35,7 @@ export const About = () => {
 
   const experiences = [
     {
-      period: "2026- 2026",
+      period: "2026 - Present",
       title: "Software Developer Part Time",
       company: "GSM Parts Center",
       description:
@@ -88,7 +91,7 @@ export const About = () => {
           <div className="glass-card p-8 md:p-10 mb-12 card-shine">
             <p className="text-white/60 text-lg leading-relaxed text-center max-w-3xl mx-auto">
               Hi, I&apos;m Kevin, a{" "}
-              <span className="text-white font-medium">21 year old Software Developer</span>{" "}
+              <span className="text-white font-medium">{age} year old Software Developer</span>{" "}
               from Dordrecht. I recently graduated from{" "}
               <span className="text-indigo-300">ROC Da Vinci College</span>{" "}
               and I&apos;m now pursuing{" "}

@@ -3,6 +3,7 @@ import "./index.css";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Toaster } from "react-hot-toast";
+import { LoadingScreen } from "./components/LoadingScreen";
 import { Navbar } from "./components/Navbar";
 import { MobileMenu } from "./components/MobileMenu";
 import { Home } from "./components/sections/Home";
@@ -13,9 +14,11 @@ import { Stats } from "./components/sections/Stats";
 import { Testimonials } from "./components/sections/Testimonials";
 import { StarBackground } from "./components/StarBackground";
 import { Footer } from "./components/Footer";
+import { BackToTop } from "./components/BackToTop";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const cursorGlowRef = useRef(null);
   const cursorBlobRef = useRef(null);
   const cursorPos = useRef({ x: 0, y: 0 });
@@ -83,6 +86,10 @@ function App() {
 
   return (
     <>
+      <AnimatePresence mode="wait">
+        {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
+      </AnimatePresence>
+
       <Toaster
         position="bottom-right"
         toastOptions={{
@@ -136,6 +143,7 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </>
   );

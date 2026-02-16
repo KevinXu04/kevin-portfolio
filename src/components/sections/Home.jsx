@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { RevealOnScroll } from "../RevealOnScroll";
-import { FaArrowDown, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaArrowDown, FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 
 export const Home = () => {
@@ -135,6 +135,11 @@ export const Home = () => {
                 icon: <FaInstagram size={20} />,
                 href: "https://www.instagram.com/realkevinxu/",
                 label: "Instagram",
+              },
+              {
+                icon: <FaGithub size={20} />,
+                href: "https://github.com/kevinxu04",
+                label: "GitHub",
               },
               {
                 icon: <HiOutlineMail size={20} />,
