@@ -60,6 +60,24 @@ export const Projects = () => {
       ],
     },
     {
+      title: "etenbijsuti.nl",
+      description:
+        "Een cateringwebsite voor Thais eten, met een volledig menu, bestellingsoverzicht en contactmogelijkheden. Gebouwd voor een professionele uitstraling.",
+      longDescription:
+        "Een moderne cateringwebsite voor een Thais eetbedrijf. De site biedt een uitgebreid menu met categorieën, een contactformulier voor catering-aanvragen en een overzichtelijke presentatie van het aanbod. Het frontend is gebouwd met Next.js en TailwindCSS voor snelle laadtijden en een strak design, terwijl de backend via Laravel de content en formulieren beheert.",
+      tech: ["Next.js", "TailwindCSS", "Laravel"],
+      gradient: "from-orange-500/20 to-red-500/20",
+      accentColor: "orange",
+      icon: "🍜",
+      link: "https://etenbijsuti.nl",
+      highlights: [
+        "Volledig Thais menu met categorieën",
+        "Catering aanvraagformulier",
+        "Next.js voor snelle performance",
+        "Laravel backend voor contentbeheer",
+      ],
+    },
+    {
       title: "Personal Portfolio",
       description:
         "The site you're viewing now! Built with React and Framer Motion featuring a liquid glass design, smooth animations, and a working contact form.",

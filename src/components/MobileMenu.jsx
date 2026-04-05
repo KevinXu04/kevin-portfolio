@@ -90,7 +90,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
           className="mt-8 flex gap-6"
         >
           <a
-            href="https://www.linkedin.com/in/kevin-xiu-a43471249/"
+            href="https://www.linkedin.com/in/kevin-xiu-0aa962250/"
             target="_blank"
             rel="noopener noreferrer"
             className="cosmic-button"

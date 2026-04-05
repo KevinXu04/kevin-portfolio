@@ -128,7 +128,7 @@ export const Home = () => {
             {[
               {
                 icon: <FaLinkedin size={20} />,
-                href: "https://www.linkedin.com/in/kevin-xiu-a43471249/",
+                href: "https://www.linkedin.com/in/kevin-xiu-0aa962250/",
                 label: "LinkedIn",
               },
               {

@@ -112,7 +112,7 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
               </div>
 
               <a
-                href="https://www.linkedin.com/in/kevin-xiu-a43471249/"
+                href="https://www.linkedin.com/in/kevin-xiu-0aa962250/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-4 px-5 py-1.5 text-sm font-semibold rounded-lg
