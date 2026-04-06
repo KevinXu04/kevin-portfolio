@@ -5,7 +5,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 export const Testimonials = () => {
   const testimonials = [
     {
-      name: "Jose",
+      name: "Jose Cano",
       role: "Internship Supervisor",
       company: "GSM Parts Center",
       quote:

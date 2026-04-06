@@ -62,19 +62,19 @@ export const Projects = () => {
     {
       title: "etenbijsuti.nl",
       description:
-        "Een cateringwebsite voor Thais eten, met een volledig menu, bestellingsoverzicht en contactmogelijkheden. Gebouwd voor een professionele uitstraling.",
+        "A catering website for Thai food, featuring a full menu, order overview, and contact options. Built for a professional and clean look.",
       longDescription:
-        "Een moderne cateringwebsite voor een Thais eetbedrijf. De site biedt een uitgebreid menu met categorieën, een contactformulier voor catering-aanvragen en een overzichtelijke presentatie van het aanbod. Het frontend is gebouwd met Next.js en TailwindCSS voor snelle laadtijden en een strak design, terwijl de backend via Laravel de content en formulieren beheert.",
+        "A modern catering website for a Thai food catering company. The site features an extensive menu with categories, a contact form for catering requests, and a clean presentation of the offerings. The frontend is built with Next.js and TailwindCSS for fast load times and a sleek design, while the Laravel backend manages content and form submissions.",
       tech: ["Next.js", "TailwindCSS", "Laravel"],
       gradient: "from-orange-500/20 to-red-500/20",
       accentColor: "orange",
       icon: "🍜",
       link: "https://etenbijsuti.nl",
       highlights: [
-        "Volledig Thais menu met categorieën",
-        "Catering aanvraagformulier",
-        "Next.js voor snelle performance",
-        "Laravel backend voor contentbeheer",
+        "Full Thai menu with categories",
+        "Catering request form",
+        "Next.js for fast performance",
+        "Laravel backend for content management",
       ],
     },
     {
@@ -288,7 +288,7 @@ export const Projects = () => {
                                  transition-all duration-300"
                     >
                       <FaExternalLinkAlt size={12} />
-                      View Live Demo
+                      Visit Website
                     </a>
                   </div>
                 )}
