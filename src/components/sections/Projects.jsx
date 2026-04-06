@@ -65,7 +65,7 @@ export const Projects = () => {
         "A catering website for Thai food, featuring a full menu, order overview, and contact options. Built for a professional and clean look.",
       longDescription:
         "A modern catering website for a Thai food catering company. The site features an extensive menu with categories, a contact form for catering requests, and a clean presentation of the offerings. The frontend is built with Next.js and TailwindCSS for fast load times and a sleek design, while the Laravel backend manages content and form submissions.",
-      tech: ["Next.js", "TailwindCSS", "Laravel"],
+      tech: ["Next.js", "TailwindCSS"],
       gradient: "from-orange-500/20 to-red-500/20",
       accentColor: "orange",
       icon: "🍜",
@@ -74,7 +74,7 @@ export const Projects = () => {
         "Full Thai menu with categories",
         "Catering request form",
         "Next.js for fast performance",
-        "Laravel backend for content management",
+        "Responsive and clean design",
       ],
     },
     {
