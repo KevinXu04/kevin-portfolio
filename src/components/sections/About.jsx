@@ -14,6 +14,7 @@ import {
   SiMysql,
   SiJavascript,
   SiLaravel,
+  SiNextdotjs,
 } from "react-icons/si";
 
 export const About = () => {
@@ -22,6 +23,7 @@ export const About = () => {
 
   const skills = [
     { name: "React", icon: <FaReact />, color: "#61DAFB" },
+    { name: "Next.js", icon: <SiNextdotjs />, color: "#FFFFFF" },
     { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
     { name: "TailwindCSS", icon: <SiTailwindcss />, color: "#06B6D4" },
     { name: "Vite", icon: <SiVite />, color: "#646CFF" },
@@ -35,29 +37,29 @@ export const About = () => {
 
   const experiences = [
     {
-      period: "2026 - Present",
+      period: "February 2026 - June 2026",
       title: "Software Developer Part Time",
       company: "GSM Parts Center",
       description:
         "Improved the trade-in platform and created an admin dashboard enabling customers to trade in devices seamlessly, handling valuations, logistics, and inventory management.",
     },
     {
-      period: "2025 - 2026",
-      title: "Software Development Intern",
+      period: "September 2025 - February 2026",
+      title: "Software Developer Intern",
       company: "GSM Parts Center",
       description:
         "Developed a trade-in platform for device trade-ins, streamlining the customer journey from valuation to processing.",
     },
     {
-      period: "2024 - 2025",
-      title: "Software Developer",
+      period: "September 2024 - February 2025",
+      title: "Software Developer Intern",
       company: "Depot Software",
       description:
         "Built a solar panel and home battery simulator, designing dashboards, leading Agile sprints, and integrating APIs with MySQL for data insights.",
     },
     {
-      period: "2023 - 2024",
-      title: "Software Development Intern",
+      period: "September 2023 - February 2024",
+      title: "Software Developer Intern",
       company: "GSM Parts Center",
       description:
         "Designed and developed 5+ client webshops, tailoring plugins and optimizing UX/UI through client collaboration.",
@@ -154,7 +156,7 @@ export const About = () => {
                   <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-indigo-400" />
                   <div className="mb-1">
                     <span className="text-xs font-mono text-indigo-400/70 tracking-wider">
-                      2026 — 2030
+                      September 2026 — 2030
                     </span>
                   </div>
                   <h4 className="font-semibold text-white mb-0.5">
@@ -166,7 +168,7 @@ export const About = () => {
                   <div className="absolute left-[-5px] top-1 w-2 h-2 rounded-full bg-indigo-400" />
                   <div className="mb-1">
                     <span className="text-xs font-mono text-indigo-400/70 tracking-wider">
-                      2022 — 2026
+                      September 2022 — February 2026
                     </span>
                   </div>
                   <h4 className="font-semibold text-white mb-0.5">
