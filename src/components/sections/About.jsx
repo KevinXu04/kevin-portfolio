@@ -94,11 +94,11 @@ export const About = () => {
             <p className="text-white/60 text-lg leading-relaxed text-center max-w-3xl mx-auto">
               Hi, I&apos;m Kevin, a{" "}
               <span className="text-white font-medium">{age} year old Software Developer</span>{" "}
-              from Dordrecht. I recently graduated from{" "}
-              <span className="text-indigo-300">ROC Da Vinci College</span>{" "}
-              and I&apos;m now pursuing{" "}
+              from Dordrecht. After graduating from{" "}
+              <span className="text-indigo-300">ROC Da Vinci College</span>
+              , I&apos;m now a first-year{" "}
               <span className="text-indigo-300">
-                Applied Data Science &amp; AI at Hogeschool Rotterdam
+                Applied Data Science &amp; AI student at Hogeschool Rotterdam
               </span>
               . I&apos;m passionate about building impactful software and have
               professional experience at companies like Depot Software and GSM Parts Center.
