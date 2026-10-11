@@ -98,7 +98,7 @@ export const About = () => {
               <span className="text-indigo-300">ROC Da Vinci College</span>{" "}
               and I&apos;m now pursuing{" "}
               <span className="text-indigo-300">
-                Business IT &amp; Management at Hogeschool Rotterdam
+                Applied Data Science &amp; AI at Hogeschool Rotterdam
               </span>
               . I&apos;m passionate about building impactful software and have
               professional experience at companies like Depot Software and GSM Parts Center.
@@ -160,7 +160,7 @@ export const About = () => {
                     </span>
                   </div>
                   <h4 className="font-semibold text-white mb-0.5">
-                    HBO Business IT & Management
+                    HBO Applied Data Science & AI
                   </h4>
                   <p className="text-white/40 text-sm">Hogeschool Rotterdam</p>
                 </div>

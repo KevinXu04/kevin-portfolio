@@ -87,7 +87,7 @@ export const Home = () => {
         <RevealOnScroll delay={0.3}>
           <p className="text-white/40 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
             Building modern web experiences with clean code and creative design.
-            Recently graduated &amp; heading to Hogeschool Rotterdam for Business IT &amp; Management.
+            Recently graduated &amp; heading to Hogeschool Rotterdam for Applied Data Science &amp; AI.
             Always looking for the next challenge.
           </p>
         </RevealOnScroll>
