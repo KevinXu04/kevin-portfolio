@@ -17,6 +17,14 @@
           else if (window.matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
         } catch (e) {}
         document.documentElement.dataset.theme = theme;
+        // Same language rule as src/i18n/language.js, applied before React loads
+        var lang = "en";
+        try {
+          var savedLang = localStorage.getItem("lang");
+          if (savedLang === "en" || savedLang === "nl") lang = savedLang;
+          else if ((navigator.languages || [navigator.language]).some(function (l) { return /^nl/i.test(l); })) lang = "nl";
+        } catch (e) {}
+        document.documentElement.lang = lang;
       })();
     </script>
     <link rel="preload" as="image" href="/projects/tradein.webp" type="image/webp" fetchpriority="high" />

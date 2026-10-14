@@ -3,12 +3,15 @@ import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react
 import { List, X } from "@phosphor-icons/react";
 import { links, navLinks } from "../data/content";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
+import { useLang } from "../i18n/language";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const { scrollY } = useScroll();
+  const { s } = useLang();
 
   // Compact the bar once the visitor scrolls past the top; hysteresis avoids flicker at the threshold
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -25,7 +28,7 @@ export const Navbar = () => {
       },
       { rootMargin: "-45% 0px -50% 0px" }
     );
-    navLinks.forEach(({ id }) => {
+    navLinks.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -49,7 +52,7 @@ export const Navbar = () => {
       }`}
     >
       <nav
-        aria-label="Main"
+        aria-label={s.nav.label}
         className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-[height] duration-300 ease-soft motion-reduce:transition-none md:px-8 ${
           scrolled && !menuOpen ? "h-14" : "h-16"
         }`}
@@ -60,28 +63,29 @@ export const Navbar = () => {
 
         <div className="flex items-center gap-1">
           <div className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
+            {navLinks.map((id) => (
               <a
-                key={link.id}
-                href={`#${link.id}`}
-                aria-current={active === link.id ? "true" : undefined}
+                key={id}
+                href={`#${id}`}
+                aria-current={active === id ? "true" : undefined}
                 className={`relative rounded-full px-4 py-2 text-sm transition-colors ${
-                  active === link.id ? "text-fg" : "text-muted hover:text-fg"
+                  active === id ? "text-fg" : "text-muted hover:text-fg"
                 }`}
               >
                 {/* Active pill fades between items (CSS only, keeps Motion's layout engine out of the bundle) */}
                 <span
                   aria-hidden="true"
                   className={`absolute inset-0 rounded-full bg-surface-2 transition-opacity duration-300 ease-soft ${
-                    active === link.id ? "opacity-100" : "opacity-0"
+                    active === id ? "opacity-100" : "opacity-0"
                   }`}
                 />
-                <span className="relative">{link.name}</span>
+                <span className="relative">{s.nav[id]}</span>
               </a>
             ))}
           </div>
 
-          <div className="md:ml-2">
+          <div className="flex items-center gap-1 md:ml-2">
+            <LanguageToggle />
             <ThemeToggle />
           </div>
 
@@ -100,7 +104,7 @@ export const Navbar = () => {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? s.nav.closeMenu : s.nav.openMenu}
           >
             {menuOpen ? <X size={22} /> : <List size={22} />}
           </button>
@@ -118,16 +122,16 @@ export const Navbar = () => {
             className="z-45 h-[calc(100dvh-4rem)] border-t border-line bg-bg px-4 pt-6 md:hidden"
           >
             <ul className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <li key={link.id}>
+              {navLinks.map((id) => (
+                <li key={id}>
                   <a
-                    href={`#${link.id}`}
+                    href={`#${id}`}
                     onClick={() => setMenuOpen(false)}
                     className={`block rounded-2xl px-4 py-3 text-2xl font-medium tracking-tight ${
-                      active === link.id ? "bg-surface-2" : ""
+                      active === id ? "bg-surface-2" : ""
                     }`}
                   >
-                    {link.name}
+                    {s.nav[id]}
                   </a>
                 </li>
               ))}

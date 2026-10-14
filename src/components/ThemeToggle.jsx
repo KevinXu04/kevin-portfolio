@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "@phosphor-icons/react";
+import { useLang } from "../i18n/language";
 
 const STORAGE_KEY = "theme";
 const darkQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
@@ -26,6 +27,7 @@ const applyTheme = (theme) => {
 export const ThemeToggle = () => {
   // The inline script in index.html already set the initial theme
   const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || "light");
+  const { s } = useLang();
 
   useEffect(() => {
     applyTheme(theme);
@@ -57,8 +59,8 @@ export const ThemeToggle = () => {
     <button
       type="button"
       onClick={toggle}
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      title={isDark ? "Light theme" : "Dark theme"}
+      aria-label={isDark ? s.theme.toLight : s.theme.toDark}
+      title={isDark ? s.theme.light : s.theme.dark}
       className="rounded-full p-2 text-muted transition-colors hover:bg-surface-2 hover:text-fg motion-safe:active:scale-[0.95]"
     >
       {isDark ? <Sun size={20} /> : <Moon size={20} />}

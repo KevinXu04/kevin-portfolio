@@ -10,15 +10,17 @@ import {
 } from "@phosphor-icons/react";
 import { Reveal } from "../Reveal";
 import { links } from "../../data/content";
+import { useLang } from "../../i18n/language";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Returns message keys (see strings.contact.errors) so they follow the active language
 const validate = ({ name, email, message }) => {
   const errors = {};
-  if (!name.trim()) errors.name = "Please enter your name.";
-  if (!email.trim()) errors.email = "Please enter your email address.";
-  else if (!EMAIL_PATTERN.test(email)) errors.email = "This email address doesn't look right.";
-  if (!message.trim()) errors.message = "Please write a short message.";
+  if (!name.trim()) errors.name = "nameRequired";
+  if (!email.trim()) errors.email = "emailRequired";
+  else if (!EMAIL_PATTERN.test(email)) errors.email = "emailInvalid";
+  if (!message.trim()) errors.message = "messageRequired";
   return errors;
 };
 
@@ -46,6 +48,8 @@ export const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const { s } = useLang();
+  const errorText = (field) => errors[field] && s.contact.errors[errors[field]];
 
   // Spam guards: bots fill the hidden "website" field and submit within moments of page load
   const mountedAt = useRef(0);
@@ -106,11 +110,8 @@ export const Contact = () => {
     <section id="contact" className="mx-auto max-w-6xl px-4 py-24 md:px-8 md:py-32">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
         <Reveal className="lg:col-span-5">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Contact</h2>
-          <p className="mt-4 max-w-[40ch] text-lg leading-relaxed text-muted">
-            Looking for a developer, or want to talk about a project? Send me a
-            message.
-          </p>
+          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{s.contact.title}</h2>
+          <p className="mt-4 max-w-[40ch] text-lg leading-relaxed text-muted">{s.contact.intro}</p>
 
           <ul className="mt-10 space-y-4">
             {channels.map(({ icon: Icon, label, href }) => (
@@ -153,7 +154,7 @@ export const Contact = () => {
               <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
             </div>
 
-            <Field id="name" label="Name" error={errors.name}>
+            <Field id="name" label={s.contact.name} error={errorText("name")}>
               <input
                 id="name"
                 name="name"
@@ -167,7 +168,7 @@ export const Contact = () => {
               />
             </Field>
 
-            <Field id="email" label="Email" error={errors.email}>
+            <Field id="email" label={s.contact.email} error={errorText("email")}>
               <input
                 id="email"
                 name="email"
@@ -181,7 +182,7 @@ export const Contact = () => {
               />
             </Field>
 
-            <Field id="message" label="Message" error={errors.message}>
+            <Field id="message" label={s.contact.message} error={errorText("message")}>
               <textarea
                 id="message"
                 name="message"
@@ -199,20 +200,20 @@ export const Contact = () => {
               disabled={status === "sending"}
               className="w-full whitespace-nowrap rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-[opacity,scale] duration-150 hover:opacity-90 motion-safe:active:scale-[0.98] disabled:opacity-60"
             >
-              {status === "sending" ? "Sending..." : "Send message"}
+              {status === "sending" ? s.contact.sending : s.contact.send}
             </button>
 
             <div aria-live="polite">
               {status === "sent" && (
                 <p className="flex items-start gap-2 text-sm text-accent">
                   <CheckCircle size={18} className="shrink-0" />
-                  Thanks, your message is on its way. I&apos;ll get back to you soon.
+                  {s.contact.sent}
                 </p>
               )}
               {status === "error" && (
                 <p className="flex items-start gap-2 text-sm text-danger">
                   <WarningCircle size={18} className="shrink-0" />
-                  Sending failed. Please try again, or email me at {links.email}.
+                  {s.contact.failed(links.email)}
                 </p>
               )}
             </div>

@@ -3,6 +3,7 @@ import { AnimatePresence, m } from "motion/react";
 import { ArrowUpRight, Check, GithubLogo, X } from "@phosphor-icons/react";
 import { Reveal } from "../Reveal";
 import { links, projects } from "../../data/content";
+import { useLang } from "../../i18n/language";
 
 // Bento layout: 4+2 / 2+4 / 6 on large screens, one column on mobile.
 const layout = {
@@ -23,43 +24,48 @@ const TechList = ({ tech }) => (
   </ul>
 );
 
-const ProjectTile = ({ project, onOpen }) => (
-  <button
-    type="button"
-    onClick={(e) => onOpen(project, e.currentTarget)}
-    className={`group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line text-left transition-[border-color,box-shadow,translate] duration-300 ease-soft hover:border-muted hover:shadow-soft focus-visible:border-muted focus-visible:shadow-soft motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 ${layout[project.id].bg}`}
-  >
-    {project.image && (
-      <div className="overflow-hidden border-b border-line">
-        <img
-          src={project.image}
-          alt=""
-          width="1440"
-          height="900"
-          loading="lazy"
-          className="aspect-[16/9] w-full object-cover object-top transition-transform duration-700 ease-soft motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03]"
-        />
+const ProjectTile = ({ project, onOpen }) => {
+  const { t } = useLang();
+  return (
+    <button
+      type="button"
+      onClick={(e) => onOpen(project, e.currentTarget)}
+      className={`group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line text-left transition-[border-color,box-shadow,translate] duration-300 ease-soft hover:border-muted hover:shadow-soft focus-visible:border-muted focus-visible:shadow-soft motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 ${layout[project.id].bg}`}
+    >
+      {project.image && (
+        <div className="overflow-hidden border-b border-line">
+          <img
+            src={project.image}
+            alt=""
+            width="1440"
+            height="900"
+            loading="lazy"
+            className="aspect-[16/9] w-full object-cover object-top transition-transform duration-700 ease-soft motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03]"
+          />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col p-6 md:p-8">
+        {project.client && <p className="text-sm text-muted">{t(project.client)}</p>}
+        <h3 className="mt-1 flex items-start justify-between gap-4 text-xl font-semibold tracking-tight">
+          {t(project.title)}
+          <ArrowUpRight
+            size={20}
+            className="mt-1 shrink-0 text-muted transition-[translate,color] duration-300 ease-soft group-hover:text-fg motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5 motion-safe:group-focus-visible:-translate-y-0.5 motion-safe:group-focus-visible:translate-x-0.5"
+          />
+        </h3>
+        <p className="mt-3 max-w-[60ch] flex-1 leading-relaxed text-muted">{t(project.description)}</p>
+        <div className="mt-6">
+          <TechList tech={project.tech} />
+        </div>
       </div>
-    )}
-    <div className="flex flex-1 flex-col p-6 md:p-8">
-      {project.client && <p className="text-sm text-muted">{project.client}</p>}
-      <h3 className="mt-1 flex items-start justify-between gap-4 text-xl font-semibold tracking-tight">
-        {project.title}
-        <ArrowUpRight
-          size={20}
-          className="mt-1 shrink-0 text-muted transition-[translate,color] duration-300 ease-soft group-hover:text-fg motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5 motion-safe:group-focus-visible:-translate-y-0.5 motion-safe:group-focus-visible:translate-x-0.5"
-        />
-      </h3>
-      <p className="mt-3 max-w-[60ch] flex-1 leading-relaxed text-muted">{project.description}</p>
-      <div className="mt-6">
-        <TechList tech={project.tech} />
-      </div>
-    </div>
-  </button>
-);
+    </button>
+  );
+};
 
 const ProjectDialog = ({ project, onClose }) => {
   const closeRef = useRef(null);
+  const { s, t } = useLang();
+  const title = t(project.title);
 
   useEffect(() => {
     closeRef.current?.focus();
@@ -94,7 +100,7 @@ const ProjectDialog = ({ project, onClose }) => {
         {project.image && (
           <img
             src={project.image}
-            alt={`Screenshot of ${project.title}`}
+            alt={s.projects.screenshotAlt(title)}
             width="1440"
             height="900"
             className="aspect-[16/9] w-full border-b border-line object-cover object-top"
@@ -104,22 +110,22 @@ const ProjectDialog = ({ project, onClose }) => {
           ref={closeRef}
           type="button"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={s.projects.close}
           className="absolute right-4 top-4 rounded-full border border-line bg-surface p-2 transition-colors hover:border-fg"
         >
           <X size={16} />
         </button>
 
         <div className="p-6 md:p-10">
-          {project.client && <p className="text-sm text-muted">{project.client}</p>}
+          {project.client && <p className="text-sm text-muted">{t(project.client)}</p>}
           <h3 id="project-dialog-title" className="mt-1 pr-10 text-2xl font-semibold tracking-tight">
-            {project.title}
+            {title}
           </h3>
-          <p className="mt-4 leading-relaxed text-muted">{project.longDescription}</p>
+          <p className="mt-4 leading-relaxed text-muted">{t(project.longDescription)}</p>
 
-          <h4 className="mt-8 text-sm font-semibold">Key features</h4>
+          <h4 className="mt-8 text-sm font-semibold">{s.projects.keyFeatures}</h4>
           <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-            {project.highlights.map((h) => (
+            {t(project.highlights).map((h) => (
               <li key={h} className="flex items-start gap-2 text-sm">
                 <Check size={16} className="mt-0.5 shrink-0 text-accent" />
                 {h}
@@ -127,7 +133,7 @@ const ProjectDialog = ({ project, onClose }) => {
             ))}
           </ul>
 
-          <h4 className="mt-8 text-sm font-semibold">Built with</h4>
+          <h4 className="mt-8 text-sm font-semibold">{s.projects.builtWith}</h4>
           <div className="mt-3">
             <TechList tech={project.tech} />
           </div>
@@ -139,7 +145,7 @@ const ProjectDialog = ({ project, onClose }) => {
               rel="noopener noreferrer"
               className="mt-10 inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-[opacity,scale] duration-150 hover:opacity-90 motion-safe:active:scale-[0.98]"
             >
-              Visit website
+              {s.projects.visit}
               <ArrowUpRight size={16} />
             </a>
           )}
@@ -151,6 +157,7 @@ const ProjectDialog = ({ project, onClose }) => {
 
 export const Projects = () => {
   const [selected, setSelected] = useState(null);
+  const { s } = useLang();
   const triggerRef = useRef(null);
 
   const open = (project, trigger) => {
@@ -166,10 +173,8 @@ export const Projects = () => {
   return (
     <section id="projects" className="mx-auto max-w-6xl px-4 py-24 md:px-8 md:py-32">
       <Reveal>
-        <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">Projects</h2>
-        <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-muted">
-          A selection of work from internships, clients and my own time.
-        </p>
+        <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{s.projects.title}</h2>
+        <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-muted">{s.projects.intro}</p>
       </Reveal>
 
       <div className="mt-12 grid gap-4 lg:grid-cols-6">
@@ -188,7 +193,7 @@ export const Projects = () => {
           className="link inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-fg"
         >
           <GithubLogo size={18} />
-          More on GitHub
+          {s.projects.moreOnGithub}
         </a>
       </Reveal>
 

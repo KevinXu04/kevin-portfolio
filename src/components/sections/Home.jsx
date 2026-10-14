@@ -1,6 +1,7 @@
 import { m, useReducedMotion } from "motion/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import { projects } from "../../data/content";
+import { useLang } from "../../i18n/language";
 
 const featured = projects.filter((p) => p.image);
 
@@ -13,6 +14,7 @@ const fadeUp = (delay, reduce) => ({
 
 export const Home = () => {
   const reduce = useReducedMotion();
+  const { s, t } = useLang();
   return (
     <section
       id="home"
@@ -25,7 +27,7 @@ export const Home = () => {
         >
           {/* Real availability state, so the dot carries meaning */}
           <span className="size-1.5 rounded-full bg-accent" aria-hidden="true" />
-          Available for new opportunities
+          {s.hero.available}
         </m.p>
 
         <m.h1
@@ -34,7 +36,7 @@ export const Home = () => {
         >
           Kevin Xiu
           <span className="mt-3 block text-3xl font-normal tracking-tight text-muted md:text-4xl">
-            Software developer
+            {s.hero.role}
           </span>
         </m.h1>
 
@@ -42,8 +44,7 @@ export const Home = () => {
           {...fadeUp(0.16, reduce)}
           className="mt-8 max-w-[42ch] text-lg leading-relaxed text-muted"
         >
-          I build web platforms and dashboards for businesses, and study Applied
-          Data Science &amp; AI at Hogeschool Rotterdam.
+          {s.hero.intro}
         </m.p>
 
         <m.div {...fadeUp(0.24, reduce)} className="mt-10 flex flex-wrap items-center gap-3">
@@ -51,7 +52,7 @@ export const Home = () => {
             href="#projects"
             className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-[opacity,scale] duration-150 hover:opacity-90 motion-safe:active:scale-[0.98]"
           >
-            View projects
+            {s.hero.viewProjects}
             <ArrowRight
               size={16}
               className="transition-transform motion-safe:group-hover:translate-x-0.5"
@@ -61,7 +62,7 @@ export const Home = () => {
             href="#contact"
             className="whitespace-nowrap rounded-full border border-line px-6 py-3 text-sm font-medium transition-[border-color,scale] duration-150 hover:border-fg motion-safe:active:scale-[0.98]"
           >
-            Contact
+            {s.hero.contact}
           </a>
         </m.div>
       </div>
@@ -79,15 +80,15 @@ export const Home = () => {
               <div className="overflow-hidden rounded-2xl border border-line bg-surface transition-[border-color,box-shadow,translate] duration-300 ease-soft group-hover:border-muted group-hover:shadow-soft motion-safe:group-hover:-translate-y-1">
                 <img
                   src={project.image}
-                  alt={`Homepage of ${project.title}`}
+                  alt={s.hero.previewAlt(t(project.title))}
                   width="1440"
                   height="900"
                   fetchPriority={i === 0 ? "high" : undefined}
                   className="aspect-[16/10] w-full object-cover"
                 />
               </div>
-              <p className="mt-3 text-sm font-medium">{project.title}</p>
-              <p className="text-sm text-muted">{project.client}</p>
+              <p className="mt-3 text-sm font-medium">{t(project.title)}</p>
+              <p className="text-sm text-muted">{t(project.client)}</p>
             </a>
           </li>
         ))}
