@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
 import { links, navLinks } from "../data/content";
 import { ThemeToggle } from "./ThemeToggle";
@@ -69,13 +69,13 @@ export const Navbar = () => {
                   active === link.id ? "text-fg" : "text-muted hover:text-fg"
                 }`}
               >
-                {active === link.id && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute inset-0 rounded-full bg-surface-2"
-                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                  />
-                )}
+                {/* Active pill fades between items (CSS only, keeps Motion's layout engine out of the bundle) */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-0 rounded-full bg-surface-2 transition-opacity duration-300 ease-soft ${
+                    active === link.id ? "opacity-100" : "opacity-0"
+                  }`}
+                />
                 <span className="relative">{link.name}</span>
               </a>
             ))}
@@ -109,7 +109,7 @@ export const Navbar = () => {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ export const Navbar = () => {
             >
               LinkedIn
             </a>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

@@ -1,10 +1,10 @@
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 
 // Fades content in once as it enters the viewport, so each section reads in order.
 // With prefers-reduced-motion the content is simply there, without fade or movement.
 export const Reveal = ({ children, delay = 0, className, as = "div" }) => {
   const reduce = useReducedMotion();
-  const Component = motion[as];
+  const Component = m[as];
   return (
     <Component
       className={className}

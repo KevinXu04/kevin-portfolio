@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { ArrowUpRight, Check, GithubLogo, X } from "@phosphor-icons/react";
 import { Reveal } from "../Reveal";
 import { links, projects } from "../../data/content";
@@ -73,7 +73,7 @@ const ProjectDialog = ({ project, onClose }) => {
   }, [onClose]);
 
   return (
-    <motion.div
+    <m.div
       className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -81,7 +81,7 @@ const ProjectDialog = ({ project, onClose }) => {
       transition={{ duration: 0.2 }}
     >
       <div className="absolute inset-0 bg-fg/40 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
-      <motion.div
+      <m.div
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-dialog-title"
@@ -144,8 +144,8 @@ const ProjectDialog = ({ project, onClose }) => {
             </a>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 };
 

@@ -1,4 +1,4 @@
-import { MotionConfig } from "motion/react";
+import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import { Navbar } from "./components/Navbar";
 import { Home } from "./components/sections/Home";
 import { About } from "./components/sections/About";
@@ -11,6 +11,8 @@ import { Footer } from "./components/Footer";
 function App() {
   return (
     // "user" turns transform animations off when prefers-reduced-motion is set
+    // LazyMotion + `m` ships only the animation features we use (no layout engine)
+    <LazyMotion features={domAnimation} strict>
     <MotionConfig reducedMotion="user">
       <a
         href="#main"
@@ -29,6 +31,7 @@ function App() {
       </main>
       <Footer />
     </MotionConfig>
+    </LazyMotion>
   );
 }
 

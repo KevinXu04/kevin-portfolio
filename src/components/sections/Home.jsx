@@ -1,12 +1,13 @@
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import { projects } from "../../data/content";
 
 const featured = projects.filter((p) => p.image);
 
+// Hero text is visible from the first paint (it is the LCP element); it only settles 8px into place
 const fadeUp = (delay, reduce) => ({
-  initial: reduce ? false : { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
+  initial: reduce ? false : { y: 8 },
+  animate: { y: 0 },
   transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] },
 });
 
@@ -18,16 +19,16 @@ export const Home = () => {
       className="mx-auto grid min-h-[100dvh] max-w-6xl items-center gap-14 px-4 pb-20 pt-28 md:px-8 lg:grid-cols-12 lg:gap-10 lg:pt-24"
     >
       <div className="lg:col-span-5">
-        <motion.p
+        <m.p
           {...fadeUp(0, reduce)}
           className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted"
         >
           {/* Real availability state, so the dot carries meaning */}
           <span className="size-1.5 rounded-full bg-accent" aria-hidden="true" />
           Available for new opportunities
-        </motion.p>
+        </m.p>
 
-        <motion.h1
+        <m.h1
           {...fadeUp(0.08, reduce)}
           className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tighter md:text-6xl"
         >
@@ -35,17 +36,17 @@ export const Home = () => {
           <span className="mt-3 block text-3xl font-normal tracking-tight text-muted md:text-4xl">
             Software developer
           </span>
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           {...fadeUp(0.16, reduce)}
           className="mt-8 max-w-[42ch] text-lg leading-relaxed text-muted"
         >
           I build web platforms and dashboards for businesses, and study Applied
           Data Science &amp; AI at Hogeschool Rotterdam.
-        </motion.p>
+        </m.p>
 
-        <motion.div {...fadeUp(0.24, reduce)} className="mt-10 flex flex-wrap items-center gap-3">
+        <m.div {...fadeUp(0.24, reduce)} className="mt-10 flex flex-wrap items-center gap-3">
           <a
             href="#projects"
             className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-[opacity,scale] duration-150 hover:opacity-90 motion-safe:active:scale-[0.98]"
@@ -62,11 +63,11 @@ export const Home = () => {
           >
             Contact
           </a>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Two shipped projects, shown whole (16:10, the native ratio) with labels below */}
-      <motion.ul
+      <m.ul
         initial={reduce ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -90,7 +91,7 @@ export const Home = () => {
             </a>
           </li>
         ))}
-      </motion.ul>
+      </m.ul>
     </section>
   );
 };

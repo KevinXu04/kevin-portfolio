@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useEffect, useRef, useState } from "react";
 import {
   CheckCircle,
   EnvelopeSimple,
@@ -48,6 +47,12 @@ export const Contact = () => {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
+  // Spam guards: bots fill the hidden "website" field and submit within moments of page load
+  const mountedAt = useRef(0);
+  useEffect(() => {
+    mountedAt.current = Date.now();
+  }, []);
+
   const update = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
     if (errors[field]) setErrors((errs) => ({ ...errs, [field]: undefined }));
@@ -59,8 +64,19 @@ export const Contact = () => {
     setErrors(found);
     if (Object.keys(found).length) return;
 
+    const honeypot = formRef.current.elements.website.value;
+    const tooFast = Date.now() - mountedAt.current < 2000;
+    if (honeypot || tooFast) {
+      // Pretend it worked so bots get no signal to retry
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+      return;
+    }
+
     setStatus("sending");
     try {
+      // Loaded on demand: most visitors never submit the form
+      const { default: emailjs } = await import("@emailjs/browser");
       await emailjs.sendForm(
         import.meta.env.VITE_SERVICE_ID,
         import.meta.env.VITE_TEMPLATE_ID,
@@ -129,8 +145,14 @@ export const Contact = () => {
             ref={formRef}
             onSubmit={handleSubmit}
             noValidate
-            className="space-y-5 rounded-2xl border border-line bg-surface p-6 md:p-8"
+            className="relative space-y-5 rounded-2xl border border-line bg-surface p-6 md:p-8"
           >
+            {/* Honeypot: hidden from people and screen readers, tempting for bots */}
+            <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+              <label htmlFor="website">Website</label>
+              <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
+
             <Field id="name" label="Name" error={errors.name}>
               <input
                 id="name"
