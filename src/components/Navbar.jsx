@@ -1,131 +1,148 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { List, X } from "@phosphor-icons/react";
+import { links, navLinks } from "../data/content";
+import { ThemeToggle } from "./ThemeToggle";
 
-export const Navbar = ({ menuOpen, setMenuOpen }) => {
+export const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [active, setActive] = useState("home");
+  const { scrollY } = useScroll();
+
+  // Compact the bar once the visitor scrolls past the top; hysteresis avoids flicker at the threshold
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setScrolled((was) => (was ? y > 8 : y > 48));
+  });
+
+  // Highlight the nav item of the section currently in the middle of the viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    navLinks.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
+    if (!menuOpen) return;
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const sections = ["home", "about", "projects", "contact"];
-      for (const section of sections.reverse()) {
-        const el = document.getElementById(section);
-        if (el && window.scrollY >= el.offsetTop - 200) {
-          setActiveSection(section);
-          break;
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-      className="fixed top-0 w-full z-40 px-4 pt-3"
+    <header
+      className={`fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-soft ${
+        scrolled || menuOpen
+          ? "border-line bg-bg/85 shadow-soft backdrop-blur-md"
+          : "border-transparent bg-transparent"
+      }`}
     >
-      <div
-        className={`max-w-6xl mx-auto rounded-2xl transition-all duration-700 ease-out ${
-          scrolled ? "liquid-glass" : "liquid-glass-subtle"
+      <nav
+        aria-label="Main"
+        className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-[height] duration-300 ease-soft motion-reduce:transition-none md:px-8 ${
+          scrolled && !menuOpen ? "h-14" : "h-16"
         }`}
       >
-        <div className="flex justify-between items-center h-14 px-6">
-            {/* Logo */}
-            <motion.a
-              href="#home"
-              className="relative group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="font-mono text-lg font-bold text-white/90 tracking-tight">
-                Kevin{" "}
-                <span className="bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-                  Xiu
-                </span>
-              </span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-gradient-to-r from-indigo-400 to-purple-400 transition-all duration-300 group-hover:w-full" />
-            </motion.a>
+        <a href="#home" className="text-[15px] font-semibold tracking-tight">
+          Kevin Xiu
+        </a>
 
-            {/* Hamburger */}
-            <button
-              className="w-8 h-6 relative cursor-pointer z-40 md:hidden flex flex-col justify-between"
-              onClick={() => setMenuOpen((prev) => !prev)}
-              aria-label="Toggle menu"
-            >
-              <motion.span
-                className="w-full h-[2px] bg-white/80 rounded-full origin-left"
-                animate={menuOpen ? { rotate: 45, y: -2 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.span
-                className="w-full h-[2px] bg-white/80 rounded-full"
-                animate={menuOpen ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-              <motion.span
-                className="w-full h-[2px] bg-white/80 rounded-full origin-left"
-                animate={menuOpen ? { rotate: -45, y: 2 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </button>
+        <div className="flex items-center gap-1">
+          <div className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                aria-current={active === link.id ? "true" : undefined}
+                className={`relative rounded-full px-4 py-2 text-sm transition-colors ${
+                  active === link.id ? "text-fg" : "text-muted hover:text-fg"
+                }`}
+              >
+                {active === link.id && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 rounded-full bg-surface-2"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <span className="relative">{link.name}</span>
+              </a>
+            ))}
+          </div>
 
-            {/* Desktop links */}
-            <div className="hidden md:flex items-center">
-              {/* Pill navigation container */}
-              <div className="flex items-center gap-1 px-1.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.06]">
-                {navLinks.map((link) => (
+          <div className="md:ml-2">
+            <ThemeToggle />
+          </div>
+
+          <a
+            href={links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 hidden rounded-full border border-line px-4 py-2 text-sm font-medium transition-[border-color,scale] duration-150 hover:border-fg motion-safe:active:scale-[0.98] md:inline-flex"
+          >
+            LinkedIn
+          </a>
+
+          <button
+            type="button"
+            className="-mr-2 rounded-full p-2 md:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            {menuOpen ? <X size={22} /> : <List size={22} />}
+          </button>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="z-45 h-[calc(100dvh-4rem)] border-t border-line bg-bg px-4 pt-6 md:hidden"
+          >
+            <ul className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <li key={link.id}>
                   <a
-                    key={link.name}
-                    href={link.href}
-                    className={`relative px-4 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ${
-                      activeSection === link.href.slice(1)
-                        ? "text-white"
-                        : "text-white/45 hover:text-white/80"
+                    href={`#${link.id}`}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block rounded-2xl px-4 py-3 text-2xl font-medium tracking-tight ${
+                      active === link.id ? "bg-surface-2" : ""
                     }`}
                   >
-                    {activeSection === link.href.slice(1) && (
-                      <motion.span
-                        layoutId="activeNav"
-                        className="absolute inset-0 bg-white/[0.1] rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative z-10">{link.name}</span>
+                    {link.name}
                   </a>
-                ))}
-              </div>
-
-              <a
-                href="https://www.linkedin.com/in/kevin-xiu-0aa962250/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-4 px-5 py-1.5 text-sm font-semibold rounded-lg
-                  bg-white/[0.12] text-white/90 border border-white/[0.15]
-                  shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_1px_3px_rgba(0,0,0,0.2)]
-                  hover:bg-white/[0.18] hover:border-white/[0.2]
-                  transition-all duration-300"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </div>
-    </motion.nav>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex rounded-full border border-line px-5 py-3 font-medium"
+            >
+              LinkedIn
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };

@@ -3,12 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Kevin Xiu - Software Developer Portfolio. React, Node.js, and more." />
-    <meta name="theme-color" content="#050510" />
+    <meta name="theme-color" content="#f6f7f7" />
+    <!-- Sets the theme before first paint to avoid a flash of the wrong theme.
+         Saved choice wins, then the system preference, otherwise light. -->
+    <script>
+      (function () {
+        var theme = "light";
+        try {
+          var saved = localStorage.getItem("theme");
+          if (saved === "light" || saved === "dark") theme = saved;
+          else if (window.matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+        } catch (e) {}
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <link rel="preload" as="image" href="/projects/tradein.webp" type="image/webp" fetchpriority="high" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -16,6 +27,9 @@
     <meta property="og:description" content="Software Developer from Dordrecht. Building modern web experiences with React, Node.js, Laravel, and more." />
     <meta property="og:url" content="https://kevinxu04.github.io" />
     <meta property="og:image" content="https://kevinxu04.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kevin Xiu, software developer, with screenshots of two projects" />
     <meta property="og:site_name" content="Kevin Xiu Portfolio" />
 
     <!-- Twitter / Discord -->
@@ -25,6 +39,26 @@
     <meta name="twitter:image" content="https://kevinxu04.github.io/og-image.png" />
 
     <title>Kevin Xiu | Software Developer</title>
+
+    <!-- Structured data so search engines show name, role and profiles -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kevin Xiu",
+        "jobTitle": "Software Developer",
+        "url": "https://kevinxu04.github.io",
+        "image": "https://kevinxu04.github.io/og-image.png",
+        "address": { "@type": "PostalAddress", "addressLocality": "Dordrecht", "addressCountry": "NL" },
+        "alumniOf": { "@type": "EducationalOrganization", "name": "ROC Da Vinci College" },
+        "affiliation": { "@type": "CollegeOrUniversity", "name": "Hogeschool Rotterdam" },
+        "knowsAbout": ["React", "Next.js", "JavaScript", "Laravel", "Node.js", "Python", "MySQL"],
+        "sameAs": [
+          "https://www.linkedin.com/in/kevin-xiu-0aa962250/",
+          "https://github.com/kevinxu04"
+        ]
+      }
+    </script>
   </head>
 
   <body>

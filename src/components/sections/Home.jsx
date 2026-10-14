@@ -1,189 +1,96 @@
-import { motion } from "framer-motion";
-import { TypeAnimation } from "react-type-animation";
-import { RevealOnScroll } from "../RevealOnScroll";
-import { FaArrowDown, FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight } from "@phosphor-icons/react";
+import { projects } from "../../data/content";
+
+const featured = projects.filter((p) => p.image);
+
+const fadeUp = (delay, reduce) => ({
+  initial: reduce ? false : { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] },
+});
 
 export const Home = () => {
+  const reduce = useReducedMotion();
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="mx-auto grid min-h-[100dvh] max-w-6xl items-center gap-14 px-4 pb-20 pt-28 md:px-8 lg:grid-cols-12 lg:gap-10 lg:pt-24"
     >
-      {/* Hero gradient orbs */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.12, 0.2, 0.12],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(99, 102, 241, 0.2), transparent 60%)",
-          filter: "blur(80px)",
-        }}
-      />
-      <motion.div
-        animate={{
-          scale: [1, 0.9, 1],
-          opacity: [0.08, 0.15, 0.08],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 60%)",
-          filter: "blur(80px)",
-        }}
-      />
-
-      <div className="text-center z-10 px-4 max-w-4xl mx-auto">
-        <RevealOnScroll>
-          {/* Status badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/[0.08] border border-indigo-500/20 mb-8"
-          >
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-sm text-indigo-300/80 font-medium">
-              Available for opportunities
-            </span>
-          </motion.div>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.1}>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tight">
-            <span className="text-white">Hi, I&apos;m </span>
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-gradient">
-              Kevin Xiu
-            </span>
-          </h1>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.2}>
-          <div className="text-xl md:text-2xl text-white/50 mb-4 font-mono h-8">
-            <TypeAnimation
-              sequence={[
-                "Software Developer",
-                2000,
-                "Frontend Enthusiast",
-                2000,
-                "Problem Solver",
-                2000,
-                "Tech Student",
-                2000,
-              ]}
-              wrapper="span"
-              speed={40}
-              repeat={Infinity}
-              className="text-indigo-300/70"
-            />
-          </div>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.3}>
-          <p className="text-white/40 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-            Building modern web experiences with clean code and creative design.
-            Currently a first-year Applied Data Science &amp; AI student at Hogeschool Rotterdam.
-            Always looking for the next challenge.
-          </p>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.4}>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="cosmic-button flex items-center gap-2 group"
-            >
-              View My Work
-              <motion.span
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                &rarr;
-              </motion.span>
-            </motion.a>
-
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-xl border border-white/[0.1] text-white/70 font-semibold
-                         hover:bg-white/[0.04] hover:border-indigo-500/30 hover:text-white
-                         transition-all duration-300"
-            >
-              Get in Touch
-            </motion.a>
-          </div>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.5}>
-          {/* Social links */}
-          <div className="flex justify-center items-center gap-4">
-            {[
-              {
-                icon: <FaLinkedin size={20} />,
-                href: "https://www.linkedin.com/in/kevin-xiu-0aa962250/",
-                label: "LinkedIn",
-              },
-              {
-                icon: <FaInstagram size={20} />,
-                href: "https://www.instagram.com/realkevinxu/",
-                label: "Instagram",
-              },
-              {
-                icon: <FaGithub size={20} />,
-                href: "https://github.com/kevinxu04",
-                label: "GitHub",
-              },
-              {
-                icon: <HiOutlineMail size={20} />,
-                href: "mailto:x.kevinxiu@hotmail.com",
-                label: "Email",
-              },
-            ].map((social, i) => (
-              <motion.a
-                key={i}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.15, y: -3 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-white/40
-                           hover:text-indigo-400 hover:border-indigo-500/30 hover:bg-indigo-500/[0.06]
-                           transition-all duration-300"
-                aria-label={social.label}
-              >
-                {social.icon}
-              </motion.a>
-            ))}
-          </div>
-        </RevealOnScroll>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      <div className="lg:col-span-5">
+        <motion.p
+          {...fadeUp(0, reduce)}
+          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2"
+          {/* Real availability state, so the dot carries meaning */}
+          <span className="size-1.5 rounded-full bg-accent" aria-hidden="true" />
+          Available for new opportunities
+        </motion.p>
+
+        <motion.h1
+          {...fadeUp(0.08, reduce)}
+          className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tighter md:text-6xl"
+        >
+          Kevin Xiu
+          <span className="mt-3 block text-3xl font-normal tracking-tight text-muted md:text-4xl">
+            Software developer
+          </span>
+        </motion.h1>
+
+        <motion.p
+          {...fadeUp(0.16, reduce)}
+          className="mt-8 max-w-[42ch] text-lg leading-relaxed text-muted"
+        >
+          I build web platforms and dashboards for businesses, and study Applied
+          Data Science &amp; AI at Hogeschool Rotterdam.
+        </motion.p>
+
+        <motion.div {...fadeUp(0.24, reduce)} className="mt-10 flex flex-wrap items-center gap-3">
+          <a
+            href="#projects"
+            className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-[opacity,scale] duration-150 hover:opacity-90 motion-safe:active:scale-[0.98]"
           >
-            <span className="text-xs text-white/20 font-mono tracking-widest uppercase">
-              Scroll
-            </span>
-            <FaArrowDown className="text-white/20" size={14} />
-          </motion.div>
+            View projects
+            <ArrowRight
+              size={16}
+              className="transition-transform motion-safe:group-hover:translate-x-0.5"
+            />
+          </a>
+          <a
+            href="#contact"
+            className="whitespace-nowrap rounded-full border border-line px-6 py-3 text-sm font-medium transition-[border-color,scale] duration-150 hover:border-fg motion-safe:active:scale-[0.98]"
+          >
+            Contact
+          </a>
         </motion.div>
       </div>
+
+      {/* Two shipped projects, shown whole (16:10, the native ratio) with labels below */}
+      <motion.ul
+        initial={reduce ? false : { opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="grid grid-cols-2 gap-3 sm:gap-5 lg:col-span-7"
+      >
+        {featured.map((project, i) => (
+          <li key={project.id} className={i === 1 ? "sm:mt-16" : ""}>
+            <a href="#projects" className="group block">
+              <div className="overflow-hidden rounded-2xl border border-line bg-surface transition-[border-color,box-shadow,translate] duration-300 ease-soft group-hover:border-muted group-hover:shadow-soft motion-safe:group-hover:-translate-y-1">
+                <img
+                  src={project.image}
+                  alt={`Homepage of ${project.title}`}
+                  width="1440"
+                  height="900"
+                  fetchPriority={i === 0 ? "high" : undefined}
+                  className="aspect-[16/10] w-full object-cover"
+                />
+              </div>
+              <p className="mt-3 text-sm font-medium">{project.title}</p>
+              <p className="text-sm text-muted">{project.client}</p>
+            </a>
+          </li>
+        ))}
+      </motion.ul>
     </section>
   );
 };
