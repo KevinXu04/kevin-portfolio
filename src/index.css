@@ -1,168 +1,114 @@
 @import "tailwindcss";
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Space Grotesk", sans-serif;
-  background: #050510;
-  color: #f3f4f6;
-  scroll-behavior: smooth;
+/*
+  Design tokens: every color on the site lives here. One neutral (cool zinc)
+  palette, one accent (deep teal). Light is the default; dark applies when
+  <html data-theme="dark"> is set by the inline script in index.html.
+
+  Shape rule: buttons and nav items are full pills, surfaces (images,
+  tiles, dialogs) are rounded-2xl, form inputs are rounded-xl.
+
+  Z-index scale: nav 40, mobile menu 45, dialog 50.
+*/
+:root {
+  --bg: #f6f7f7;
+  --surface: #fdfdfd;
+  --surface-2: #eceeef;
+  --fg: #17181a;
+  --muted: #575b61;
+  --line: #dfe2e4;
+  --accent: #11706a;
+  --accent-soft: #11706a14;
+  --on-accent: #fdfdfd;
+  --danger: #b42318;
+  --shadow: 210 10% 20%;
+  color-scheme: light;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #050510;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.4);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
-}
-
-::selection {
-  background: rgba(99, 102, 241, 0.3);
-  color: #fff;
+[data-theme="dark"] {
+  --bg: #0e0f10;
+  --surface: #15171a;
+  --surface-2: #1c1f22;
+  --fg: #ececee;
+  --muted: #a3a7ad;
+  --line: #272a2e;
+  --accent: #7cc4b8;
+  --accent-soft: #7cc4b81a;
+  --on-accent: #0e0f10;
+  --danger: #f97066;
+  --shadow: 210 20% 2%;
+  color-scheme: dark;
 }
 
-@layer utilities {
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  .animate-blink {
-    animation: blink 0.8s step-end infinite;
-  }
-  @keyframes loading {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(350%); }
-  }
-  .animate-loading-bar {
-    animation: loading 1.2s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-  @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); }
-    50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); }
-  }
-  .animate-glow-pulse {
-    animation: glow-pulse 3s ease-in-out infinite;
-  }
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 4s ease infinite;
-  }
+/* Keep Tailwind's dark: variant in sync with the chosen theme */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Set for one frame while switching so every color changes at once */
+.theme-switching,
+.theme-switching * {
+  transition: none !important;
 }
 
 @theme {
-  --color-border: hsl(var(--border));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-card: hsl(var(--card));
-  --color-muted: hsl(var(--muted));
-  --color-accent: hsl(var(--accent));
-  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
-  --animate-meteor: meteor 5s linear infinite;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
 
-  @keyframes pulse-subtle {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-  @keyframes meteor {
-    0% { transform: rotate(215deg) translateX(0); opacity: 1; }
-    70% { opacity: 1; }
-    100% { transform: rotate(215deg) translateX(-600px); opacity: 0; }
-  }
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
 }
 
 @layer base {
-  :root {
-    --background: 230 30% 3%;
-    --foreground: 213 31% 91%;
-    --card: 230 25% 7%;
-    --primary: 245 58% 62%;
-    --primary-foreground: 213 31% 95%;
-    --border: 230 20% 15%;
-    --muted: 230 15% 50%;
-    --accent: 200 80% 60%;
-  }
-
-  * {
-    @apply border-border;
-  }
   html {
-    @apply scroll-smooth;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
-  /* Hide default cursor on desktop */
-  @media (hover: hover) {
-    *, *::before, *::after {
-      cursor: none !important;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
     }
   }
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-feature-settings: "ss01" 1;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 }
 
-@utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
-  @media (width >= 640px) { max-width: 640px; }
-  @media (width >= 768px) { max-width: 768px; }
-  @media (width >= 1024px) { max-width: 1024px; }
-  @media (width >= 1280px) { max-width: 1280px; }
+/* Text links: underline fades in on hover/focus (color only, safe for reduced motion) */
+@utility link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: transparent;
+  transition: color 200ms var(--ease-soft), text-decoration-color 200ms var(--ease-soft);
+  &:hover,
+  &:focus-visible {
+    text-decoration-color: currentColor;
+  }
 }
 
-@utility glass-card {
-  @apply rounded-2xl border border-white/[0.08] backdrop-blur-xl;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-@utility text-glow {
-  text-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 0 60px rgba(99, 102, 241, 0.15);
-}
-
-@utility gradient-text {
-  @apply bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent;
-}
-
-@utility cosmic-button {
-  @apply px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold
-    transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]
-    hover:scale-105 active:scale-95;
-}
-
-@utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.3);
-}
-
-@utility meteor {
-  @apply absolute bg-gradient-to-r from-white via-white/80 to-transparent rounded-full;
-  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.2);
-}
-
-#root {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
+@utility shadow-soft {
+  box-shadow:
+    0 1px 2px hsl(var(--shadow) / 0.06),
+    0 12px 32px -12px hsl(var(--shadow) / 0.18);
 }
