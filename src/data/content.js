@@ -1,6 +1,9 @@
 // Text fields are { en, nl }; resolve them with `t()` from useLang().
 // Names, tech and links are the same in both languages.
 
+// Files in public/ are resolved against Vite's base, so images work at any URL path
+const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 export const links = {
   linkedin: "https://www.linkedin.com/in/kevin-xiu-0aa962250/",
   github: "https://github.com/kevinxu04",
@@ -66,14 +69,17 @@ export const education = [
   {
     id: "hr",
     period: { en: "Sep 2026 - 2030", nl: "sep 2026 - 2030" },
-    title: "HBO Applied Data Science & AI",
+    title: "Applied Data Science & Artificial Intelligence",
     school: "Hogeschool Rotterdam",
+    // Spelled out for international readers; Dutch spelling of hbo/mbo is lowercase
+    level: { en: "Bachelor's programme (HBO)", nl: "Hbo-bachelor" },
   },
   {
     id: "davinci",
     period: { en: "Sep 2022 - Feb 2026", nl: "sep 2022 - feb 2026" },
-    title: "MBO 4 Software Developer",
+    title: "Software Developer",
     school: "ROC Da Vinci College",
+    level: { en: "Vocational diploma, MBO level 4", nl: "Mbo-diploma, niveau 4" },
   },
 ];
 
@@ -91,7 +97,7 @@ export const projects = [
       nl: "Dit platform, ontwikkeld voor GSM Parts Center, digitaliseert het hele inruilproces. Klanten kiezen hun model, beantwoorden vragen over de staat van het apparaat en krijgen direct een taxatie. Het systeem regelt verzendlabels, de keuring van apparaten, uitbetalingen en de koppeling met de voorraad. Het admin-dashboard toont inruilvolumes, apparaatcategorieën en omzet in realtime.",
     },
     tech: ["React", "Laravel", "MySQL", "Tailwind CSS"],
-    image: "projects/tradein.webp",
+    image: asset("projects/tradein.webp"),
     link: "https://tradein.xuprojects.dev",
     highlights: {
       en: [
@@ -176,7 +182,7 @@ export const projects = [
       nl: "Een website voor een Thaise cateraar. De site toont een uitgebreid menu met categorieën, een formulier voor cateringaanvragen en een helder overzicht van het aanbod. Gebouwd met Next.js en Tailwind CSS voor snelle laadtijden op elk apparaat.",
     },
     tech: ["Next.js", "Tailwind CSS"],
-    image: "projects/etenbijsuti.webp",
+    image: asset("projects/etenbijsuti.webp"),
     link: "https://etenbijsuti.nl",
     highlights: {
       en: [

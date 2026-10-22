@@ -48,7 +48,12 @@ export const Experience = () => {
             <h3 className="text-lg font-semibold">{s.experience.education}</h3>
             {education.map((edu) => (
               <Reveal key={edu.id}>
-                <Entry period={t(edu.period)} title={edu.title} org={edu.school} />
+                <Entry
+                  period={t(edu.period)}
+                  title={edu.title}
+                  org={edu.school}
+                  description={t(edu.level)}
+                />
               </Reveal>
             ))}
           </div>

@@ -23,7 +23,7 @@ export const strings = {
       available: "Available for new opportunities",
       role: "Software developer",
       intro:
-        "I build web platforms and dashboards for businesses, and study Applied Data Science & AI at Hogeschool Rotterdam.",
+        "I build web platforms and dashboards for businesses, and study Applied Data Science & Artificial Intelligence at Hogeschool Rotterdam.",
       viewProjects: "View projects",
       contact: "Contact",
       previewAlt: (title) => `Homepage of ${title}`,
@@ -31,11 +31,11 @@ export const strings = {
     about: {
       title: "About",
       intro: (age) =>
-        `I'm Kevin, a ${age}-year-old software developer. After graduating from ROC Da Vinci College, I'm now a first-year Applied Data Science & AI student at Hogeschool Rotterdam.`,
+        `I'm Kevin, a ${age}-year-old software developer. After graduating from ROC Da Vinci College, I'm now a first-year Applied Data Science & Artificial Intelligence student at Hogeschool Rotterdam.`,
       more: "I like building software that people use every day, and I have professional experience at Depot Software and GSM Parts Center.",
       facts: [
         { label: "Based in", value: "Dordrecht, the Netherlands" },
-        { label: "Studying", value: "Applied Data Science & AI, Hogeschool Rotterdam" },
+        { label: "Studying", value: "Applied Data Science & Artificial Intelligence, Hogeschool Rotterdam" },
         { label: "Experience", value: "4 developer roles at 2 companies since 2023" },
       ],
       techStack: "Tech stack",
@@ -94,7 +94,7 @@ export const strings = {
       available: "Beschikbaar voor nieuwe kansen",
       role: "Softwareontwikkelaar",
       intro:
-        "Ik bouw webplatforms en dashboards voor bedrijven en studeer Applied Data Science & AI aan de Hogeschool Rotterdam.",
+        "Ik bouw webplatforms en dashboards voor bedrijven en studeer Applied Data Science & Artificial Intelligence aan de Hogeschool Rotterdam.",
       viewProjects: "Bekijk projecten",
       contact: "Contact",
       previewAlt: (title) => `Homepage van ${title}`,
@@ -102,11 +102,11 @@ export const strings = {
     about: {
       title: "Over mij",
       intro: (age) =>
-        `Ik ben Kevin, een ${age}-jarige softwareontwikkelaar. Na mijn opleiding aan het ROC Da Vinci College ben ik nu eerstejaars Applied Data Science & AI aan de Hogeschool Rotterdam.`,
+        `Ik ben Kevin, een ${age}-jarige softwareontwikkelaar. Na mijn opleiding aan het ROC Da Vinci College ben ik nu eerstejaars Applied Data Science & Artificial Intelligence aan de Hogeschool Rotterdam.`,
       more: "Ik bouw graag software die mensen elke dag gebruiken en heb werkervaring opgedaan bij Depot Software en GSM Parts Center.",
       facts: [
         { label: "Woonplaats", value: "Dordrecht" },
-        { label: "Opleiding", value: "Applied Data Science & AI, Hogeschool Rotterdam" },
+        { label: "Opleiding", value: "Applied Data Science & Artificial Intelligence, Hogeschool Rotterdam" },
         { label: "Ervaring", value: "4 functies als developer bij 2 bedrijven sinds 2023" },
       ],
       techStack: "Tech stack",

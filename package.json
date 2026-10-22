@@ -1,15 +1,12 @@
 {
   "name": "portfolio_site",
-  "homepage": "https://kevinxu04.github.io",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -17,7 +14,6 @@
     "@fontsource-variable/geist-mono": "^5.3.0",
     "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.1.4",
-    "gh-pages": "^6.3.0",
     "motion": "^14.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
