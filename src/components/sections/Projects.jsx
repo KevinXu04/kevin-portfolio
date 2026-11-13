@@ -5,13 +5,14 @@ import { Reveal } from "../Reveal";
 import { links, projects } from "../../data/content";
 import { useLang } from "../../i18n/language";
 
-// Bento layout: 4+2 / 2+4 / 6 on large screens, one column on mobile.
+// Bento layout: 4+2 / 2+4 / 4+2 on large screens, one column on mobile.
 const layout = {
   tradein: { span: "lg:col-span-4", bg: "bg-surface" },
   solar: { span: "lg:col-span-2", bg: "bg-accent-soft" },
   jukebox: { span: "lg:col-span-2", bg: "bg-surface-2" },
   etenbijsuti: { span: "lg:col-span-4", bg: "bg-surface" },
-  portfolio: { span: "lg:col-span-6", bg: "bg-surface-2" },
+  stichtingbeternederland: { span: "lg:col-span-4", bg: "bg-surface" },
+  portfolio: { span: "lg:col-span-2", bg: "bg-accent-soft" },
 };
 
 const TechList = ({ tech }) => (

@@ -200,6 +200,36 @@ export const projects = [
     },
   },
   {
+    id: "stichtingbeternederland",
+    title: "stichtingbeternederland.com",
+    client: "Stichting Beter Nederland",
+    description: {
+      en: "The website of a non-profit foundation working towards an inclusive society, with news, projects, donations and a contact form.",
+      nl: "De website van een stichting zonder winstoogmerk die werkt aan een inclusieve samenleving, met nieuws, projecten, doneren en een contactformulier.",
+    },
+    longDescription: {
+      en: "A website for Stichting Beter Nederland, a Dutch foundation that runs projects around awareness, civic engagement, personal development and social connection. Visitors read about the foundation's initiatives, follow the latest news, find out how to donate and get in touch. A custom admin panel lets the foundation manage everything itself: page content, the homepage slider, news articles with a rich-text editor, categories, settings and incoming messages.",
+      nl: "Een website voor Stichting Beter Nederland, een stichting met projecten rond bewustwording, maatschappelijke betrokkenheid, zelfontwikkeling en sociale verbinding. Bezoekers lezen over de initiatieven, volgen het laatste nieuws, zien hoe ze kunnen doneren en nemen contact op. Via een eigen beheeromgeving past de stichting alles zelf aan: paginateksten, de slider op de homepage, nieuwsberichten met een teksteditor, categorieën, instellingen en binnengekomen berichten.",
+    },
+    tech: ["React", "Node.js", "Express", "TipTap"],
+    image: asset("projects/stichtingbeternederland.webp"),
+    link: "https://stichtingbeternederland.com",
+    highlights: {
+      en: [
+        "Custom content management system",
+        "News articles with rich-text editor",
+        "Contact form with message inbox",
+        "Responsive design",
+      ],
+      nl: [
+        "Eigen contentbeheersysteem",
+        "Nieuwsberichten met teksteditor",
+        "Contactformulier met berichteninbox",
+        "Responsive design",
+      ],
+    },
+  },
+  {
     id: "portfolio",
     title: { en: "This portfolio", nl: "Dit portfolio" },
     client: { en: "Personal", nl: "Persoonlijk" },
